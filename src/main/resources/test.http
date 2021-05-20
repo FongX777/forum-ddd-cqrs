@@ -1,0 +1,57 @@
+### 1. API - Publish first post (expect 200 OK)
+POST http://localhost:8080/posts
+Content-Type: application/json
+
+{
+  "subject": "CQRS rocks",
+  "body": "Once upon a time, there was a very cool architecture pattern called CQRS"
+}
+
+### 2. API - Publish second post (expect 200 OK)
+POST http://localhost:8080/posts
+Content-Type: application/json
+
+{
+  "subject": "DDD is sexy",
+  "body": "I dont have 34D but I have 3D"
+}
+
+### 3. API - Publish second post (expected 400)
+POST http://localhost:8080/posts
+Content-Type: application/json
+
+{
+  "subject": "DDD is sexy",
+  "body": ""
+}
+
+### 4. API - Get Post
+GET http://localhost:8080/posts/e3ea6fc3-1793-4222-8563-b094ec77f1ff
+
+### 5. API - Search Post
+GET http://localhost:8080/posts/search?keyword=34d
+
+##########################################################################
+
+### ES Get Schema (check ES alive)
+GET http://localhost:9200/post/_mappings
+
+### ES Get All
+POST http://localhost:9200/post/_search
+Content-Type: application/json
+
+
+### ES keyword search
+POST http://localhost:9200/post/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "multi_match": {
+      "query": "CQRS",
+      "fields": ["subject", "body"]
+    }
+  }
+}
+
+
